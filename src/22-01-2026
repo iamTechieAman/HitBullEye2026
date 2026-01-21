@@ -1,0 +1,300 @@
+# Single Inheritance Example in Java
+
+This example demonstrates **single inheritance** in Java, where one class inherits properties from another class using the `extends` keyword.
+
+---
+
+## Java Code Example
+
+```java
+class Employee {
+    float salary = 40000;
+}
+
+class Programmer extends Employee {
+    int bonus = 10000;
+
+    public static void main(String args[]) {
+        Programmer p = new Programmer();
+        System.out.println("Programmer salary is: " + p.salary);
+        System.out.println("Bonus of Programmer is: " + p.bonus);
+    }
+}
+```
+
+---
+
+## Explanation
+
+### 1. Parent Class (`Employee`)
+
+The `Employee` class contains a data member `salary`, which represents the basic salary of an employee.
+
+### 2. Child Class (`Programmer`)
+
+The `Programmer` class **extends** the `Employee` class. This means:
+
+* `Programmer` automatically gets access to the `salary` field of `Employee`.
+* It also has its own data member `bonus`.
+
+### 3. Object Creation
+
+```java
+Programmer p = new Programmer();
+```
+
+An object of the child class is created. This object can access:
+
+* Its own members (`bonus`)
+* Inherited members (`salary`)
+
+### 4. Output Statements
+
+The program prints both the inherited salary and the programmer’s bonus.
+
+---
+
+## Key Concepts Covered
+
+* Inheritance using `extends`
+* IS-A relationship (`Programmer` is an `Employee`)
+* Code reusability
+* Accessing inherited members
+
+Inheritance helps reduce code duplication and makes programs easier to maintain.
+
+# Hierarchical Inheritance Example in Java
+
+This example demonstrates **hierarchical inheritance** in Java, where multiple child classes inherit from a single parent class. It also highlights method accessibility based on object type.
+
+---
+
+## Java Code Example
+
+```java
+class Animal {
+    void eat() {
+        System.out.println("eating...");
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println("barking...");
+    }
+}
+
+class Cat extends Animal {
+    void meow() {
+        System.out.println("meowing...");
+    }
+}
+
+class TestInheritance3 {
+    public static void main(String args[]) {
+        Cat c = new Cat();
+        c.meow();
+        c.eat();
+        // c.bark(); // Compile-time error
+    }
+}
+```
+
+---
+
+## Explanation
+
+### 1. Parent Class (`Animal`)
+
+The `Animal` class defines a common behavior `eat()` that is shared by all animals.
+
+### 2. Child Classes (`Dog` and `Cat`)
+
+* Both `Dog` and `Cat` extend the `Animal` class.
+* This means both classes inherit the `eat()` method.
+* Each child class also defines its own specific behavior:
+
+  * `Dog` → `bark()`
+  * `Cat` → `meow()`
+
+### 3. Object Creation and Method Access
+
+```java
+Cat c = new Cat();
+```
+
+The object `c` can access:
+
+* Its own method (`meow()`)
+* Inherited method (`eat()`)
+
+It **cannot** access methods of sibling classes (`bark()`), which results in a compile-time error.
+
+---
+
+## Key Concepts Covered
+
+* Hierarchical inheritance
+* Code reuse through a common parent class
+* Method accessibility based on reference type
+* Compile-time error for invalid method calls
+
+Hierarchical inheritance helps organize related classes while sharing common functionality efficiently.
+
+# Multilevel Inheritance Example in Java
+
+This example demonstrates **multilevel inheritance** in Java, where a class inherits from another class, which itself inherits from a third class. It shows how methods are passed down through multiple levels of inheritance.
+
+---
+
+## Java Code Example
+
+```java
+class Animal {
+    void eat() {
+        System.out.println("eating...");
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println("barking...");
+    }
+}
+
+class BabyDog extends Dog {
+    void weep() {
+        System.out.println("weeping...");
+    }
+}
+
+class TestInheritance2 {
+    public static void main(String args[]) {
+        BabyDog d = new BabyDog();
+        d.weep();
+        d.bark();
+        d.eat();
+    }
+}
+```
+
+---
+
+## Explanation
+
+### 1. Base Class (`Animal`)
+
+The `Animal` class defines a common behavior `eat()`.
+
+### 2. Intermediate Class (`Dog`)
+
+The `Dog` class extends `Animal` and:
+
+* Inherits the `eat()` method
+* Adds its own behavior `bark()`
+
+### 3. Derived Class (`BabyDog`)
+
+The `BabyDog` class extends `Dog` and:
+
+* Inherits both `eat()` and `bark()` methods
+* Adds a new behavior `weep()`
+
+### 4. Object Creation and Method Calls
+
+```java
+BabyDog d = new BabyDog();
+```
+
+The object `d` can access methods from:
+
+* Its own class (`weep()`)
+* Parent class (`bark()`)
+* Grandparent class (`eat()`)
+
+---
+
+## Key Concepts Covered
+
+* Multilevel inheritance
+* IS-A relationship across multiple levels
+* Method accessibility through inheritance
+* Code reuse and hierarchical class design
+
+Multilevel inheritance helps build complex behavior by extending existing classes step by step.
+
+# Why Multiple Inheritance Is Not Supported in Java (Class Example)
+
+This example explains **why Java does not support multiple inheritance using classes**. It highlights the ambiguity that can arise when two parent classes contain methods with the same signature.
+
+---
+
+## Java Code Example (Hypothetical)
+
+```java
+class A {
+    void msg() {
+        System.out.println("Hello");
+    }
+}
+
+class B {
+    void msg() {
+        System.out.println("welcome");
+    }
+}
+
+class C extends A, B { // suppose if it were allowed
+    public static void main(String args[]) {
+        C obj = new C();
+        obj.msg(); // Which msg() should be called?
+    }
+}
+```
+
+> ⚠️ **Note:** This code will not compile in Java because multiple inheritance using classes is not allowed.
+
+---
+
+## Explanation
+
+### The Problem: Method Ambiguity
+
+Both class `A` and class `B` define a method with the same signature:
+
+```java
+void msg()
+```
+
+If Java allowed class `C` to extend both `A` and `B`, the compiler would not know:
+
+* Whether to call `A.msg()` or
+* Whether to call `B.msg()`
+
+This situation is known as the **Diamond Problem** or **ambiguity problem**.
+
+### Why Java Avoids This
+
+To keep the language simple and avoid confusion, Java **does not support multiple inheritance with classes**.
+
+---
+
+## How Java Solves This Problem
+
+Java supports multiple inheritance using **interfaces**, not classes.
+
+* A class can implement multiple interfaces.
+* Interfaces do not cause ambiguity because methods are either:
+
+  * Implemented by the class, or
+  * Resolved using default method rules.
+
+---
+
+## Key Points
+
+* Java does **not** allow multiple inheritance with classes.
+* This prevents ambiguity and complexity.
+* Multiple inheritance is achieved safely using **interfaces**.
+
+Understanding this concept is important for designing clear and maintainable object-oriented programs in Java.
