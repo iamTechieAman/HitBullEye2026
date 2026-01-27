@@ -1,0 +1,673 @@
+# Abstract Class Example in Java
+
+This example demonstrates the use of an **abstract class** in Java. It shows how abstraction helps define a common structure while allowing child classes to provide specific implementations.
+
+---
+
+## Java Code Example
+
+```java
+abstract class Animal {
+    private String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    public abstract void makeSound();
+
+    public String getName() {
+        return name;
+    }
+}
+
+// Concrete class
+class Dog extends Animal {
+
+    public Dog(String name) {
+        super(name);
+    }
+
+    public void makeSound() {
+        System.out.println(getName() + " barks");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal myDog = new Dog("Tommy");
+        myDog.makeSound();
+    }
+}
+```
+
+---
+
+## Explanation
+
+### 1. Abstract Class (`Animal`)
+
+* The `Animal` class is declared as `abstract`.
+* It contains an abstract method `makeSound()` without implementation.
+* Abstract classes **cannot be instantiated directly**.
+
+### 2. Constructor in Abstract Class
+
+```java
+public Animal(String name)
+```
+
+Even though an abstract class cannot be instantiated, it can have constructors. These constructors are called using `super()` from the child class.
+
+### 3. Abstract Method
+
+```java
+public abstract void makeSound();
+```
+
+* This method defines what all animals must do.
+* Each subclass must provide its own implementation.
+
+### 4. Concrete Child Class (`Dog`)
+
+* The `Dog` class extends `Animal`.
+* It provides the implementation of the `makeSound()` method.
+
+### 5. Runtime Polymorphism
+
+```java
+Animal myDog = new Dog("Tommy");
+```
+
+* A parent class reference is used to store a child class object.
+* The method call is resolved at runtime based on the actual object type.
+
+---
+
+## Key Concepts Covered
+
+* Abstract class
+* Abstract method
+* Constructor in abstract class
+* Method overriding
+* Runtime polymorphism
+
+Abstract classes help enforce a common structure while still allowing flexibility in implementation.
+
+# General Syntax of an Interface in Java
+
+This section explains the **basic syntax of an interface in Java**. Interfaces are used to achieve abstraction and define a contract that implementing classes must follow.
+
+---
+
+## Java Interface Syntax
+
+```java
+// You are using Java
+import java.lang.*;
+// Any number of import statements
+
+public interface NameOfInterface {
+    // Any number of final, static fields
+    // Any number of abstract method declarations
+}
+```
+
+---
+
+## Explanation
+
+### 1. Import Statements
+
+```java
+import java.lang.*;
+```
+
+* Import statements allow access to classes defined in other packages.
+* The `java.lang` package is imported automatically by Java, but it is shown here for understanding.
+
+### 2. Interface Declaration
+
+```java
+public interface NameOfInterface
+```
+
+* An interface is declared using the `interface` keyword.
+* The `public` keyword makes the interface accessible from anywhere.
+
+### 3. Interface Members
+
+#### a) Fields in an Interface
+
+* All variables declared in an interface are **public, static, and final** by default.
+* They act as constants and must be initialized at the time of declaration.
+
+#### b) Methods in an Interface
+
+* Methods are **public and abstract** by default.
+* They do not have method bodies (except default and static methods in newer Java versions).
+
+---
+
+## Key Points
+
+* Interfaces cannot be instantiated.
+* A class uses the `implements` keyword to implement an interface.
+* Interfaces support multiple inheritance.
+* Interfaces help achieve full abstraction.
+
+This syntax forms the foundation for using interfaces effectively in Java programs.
+
+# Interface Implementation Example in Java
+
+This example demonstrates how an **interface** is defined and implemented in Java. It shows how interfaces are used to achieve abstraction and enforce method implementation in implementing classes.
+
+---
+
+## Java Code Example
+
+```java
+interface Polygon {
+    void getArea(int length, int breadth);
+}
+
+// Implement the Polygon interface
+class Rectangle implements Polygon {
+
+    // Implementation of abstract method
+    public void getArea(int length, int breadth) {
+        System.out.println("The area of the rectangle is " + (length * breadth));
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Rectangle r1 = new Rectangle();
+        r1.getArea(5, 6);
+    }
+}
+```
+
+---
+
+## Explanation
+
+### 1. Interface (`Polygon`)
+
+* An interface is declared using the `interface` keyword.
+* All methods in an interface are **abstract by default**.
+* The `getArea()` method defines a contract that any implementing class must follow.
+
+### 2. Implementing the Interface (`Rectangle`)
+
+* The `Rectangle` class uses the `implements` keyword to implement the `Polygon` interface.
+* It provides the concrete implementation of the `getArea()` method.
+* The method must be declared as `public`, otherwise a compile-time error occurs.
+
+### 3. Object Creation and Method Call
+
+```java
+Rectangle r1 = new Rectangle();
+r1.getArea(5, 6);
+```
+
+* An object of the implementing class is created.
+* The interface method is called using the object reference.
+
+---
+
+## Key Concepts Covered
+
+* Interface declaration
+* Implementing an interface using `implements`
+* Abstract methods in interfaces
+* Achieving abstraction
+* Method implementation rules
+
+Interfaces are commonly used in Java to support **multiple inheritance**, define standard behavior, and build loosely coupled applications.
+
+# Multiple Interface Inheritance Example in Java
+
+This example demonstrates **multiple inheritance using interfaces** in Java. Unlike classes, an interface can extend more than one interface, allowing Java to support multiple inheritance safely.
+
+---
+
+## Java Code Example
+
+```java
+interface A {
+    // members of interface A
+}
+
+interface B {
+    // members of interface B
+}
+
+interface C extends A, B {
+    // members of interface C
+    // members inherited from A and B
+}
+```
+
+---
+
+## Explanation
+
+### 1. Base Interfaces (`A` and `B`)
+
+* `A` and `B` are independent interfaces.
+* Each interface can contain abstract methods, default methods, static methods, and constants.
+
+### 2. Interface Extending Multiple Interfaces (`C`)
+
+```java
+interface C extends A, B
+```
+
+* The interface `C` extends **both** `A` and `B`.
+* This means `C` inherits all method declarations from both interfaces.
+* Any class implementing `C` must implement methods from **A, B, and C**.
+
+### 3. Why This Is Allowed
+
+* Java does **not** allow multiple inheritance with classes to avoid ambiguity.
+* Interfaces only declare method signatures, so there is no conflict in inheritance.
+* This makes interface-based multiple inheritance safe and flexible.
+
+---
+
+## Key Concepts Covered
+
+* Multiple inheritance using interfaces
+* Extending more than one interface
+* Avoiding ambiguity in Java
+* Interface hierarchy design
+
+This approach is commonly used to combine multiple capabilities into a single interface while keeping the design clean and maintainable.
+
+# Multiple Inheritance Using Interfaces in Java
+
+Java does not support multiple inheritance with classes, but it **does support multiple inheritance using interfaces**. A class can implement more than one interface, allowing it to inherit abstract method contracts from multiple sources.
+
+---
+
+## Example Code
+
+```java
+interface A {
+    // members of A
+}
+
+interface B {
+    // members of B
+}
+
+class C implements A, B {
+    // abstract members of A
+    // abstract members of B
+}
+```
+
+---
+
+## Explanation
+
+* `A` and `B` are **interfaces**. They can contain abstract methods (and from Java 8 onwards, default and static methods).
+* `C` is a **class** that implements both interfaces `A` and `B`.
+* By using the `implements` keyword, class `C` agrees to provide implementations for all abstract methods declared in both interfaces.
+
+This approach allows Java to achieve multiple inheritance **without ambiguity**, since interfaces do not have instance state like classes.
+
+---
+
+## Key Points
+
+* A class can implement **multiple interfaces**.
+* Interfaces support **multiple inheritance**, classes do not.
+* Method name conflicts (if any) must be resolved explicitly in the implementing class.
+* This design promotes loose coupling and better abstraction.
+
+---
+
+## When to Use Interfaces for Multiple Inheritance
+
+* When you want to define a common contract for unrelated classes.
+* When a class needs to follow behaviors from multiple sources.
+* When designing APIs or frameworks that rely on abstraction rather than implementation.
+
+---
+
+
+
+# Multiple Inheritance Using Interfaces in Java
+
+This example demonstrates how **multiple inheritance** is achieved in Java using **interfaces**. A class can implement more than one interface, allowing it to inherit behavior from multiple sources without ambiguity.
+
+---
+
+## Java Code Example
+
+```java
+// Interface representing shapes
+interface Shape {
+    void draw();  // Abstract method for drawing a shape
+}
+
+// Interface representing colors
+interface Color {
+    void setColor(String color);  // Abstract method for setting the color
+}
+
+// Class implementing both Shape and Color interfaces
+class ColoredShape implements Shape, Color {
+    private String color;
+
+    // Implementation of the draw method from the Shape interface
+    public void draw() {
+        System.out.println("Drawing a colored shape");
+    }
+
+    // Implementation of the setColor method from the Color interface
+    public void setColor(String color) {
+        this.color = color;
+        System.out.println("Setting color to: " + color);
+    }
+
+    public void displayInfo() {
+        System.out.println("Colored shape information");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ColoredShape coloredShape = new ColoredShape();
+        // Invoking methods from both Shape and Color interfaces
+        coloredShape.draw();
+        coloredShape.setColor("Red");
+        coloredShape.displayInfo();
+    }
+}
+```
+
+---
+
+## Explanation
+
+### 1. Interfaces (`Shape` and `Color`)
+
+* Both `Shape` and `Color` are interfaces.
+* Interfaces contain **abstract methods by default**.
+* They define what a class *can do*, not how it does it.
+
+### 2. Implementing Multiple Interfaces
+
+```java
+class ColoredShape implements Shape, Color
+```
+
+* The `ColoredShape` class implements **two interfaces**.
+* This is how Java supports **multiple inheritance** safely.
+* The class must provide implementations for **all abstract methods** declared in the interfaces.
+
+### 3. Method Implementations
+
+* `draw()` is implemented from the `Shape` interface.
+* `setColor()` is implemented from the `Color` interface.
+* `displayInfo()` is a normal class method, not part of any interface.
+
+### 4. Object Creation and Method Calls
+
+```java
+ColoredShape coloredShape = new ColoredShape();
+```
+
+The object can access:
+
+* Methods from both interfaces (`draw()`, `setColor()`)
+* Its own class method (`displayInfo()`)
+
+---
+
+## Key Concepts Covered
+
+* Multiple inheritance using interfaces
+* Implementing multiple interfaces with `implements`
+* Abstraction through interfaces
+* Avoiding ambiguity present in class-based multiple inheritance
+
+Using interfaces allows Java to support multiple inheritance while keeping the language simple, safe, and maintainable.
+
+# Interface Inheritance Example in Java
+
+This example demonstrates **interface inheritance** in Java, where one interface extends another interface. It shows how interfaces can build upon each other to form a hierarchy.
+
+---
+
+## Java Code Example
+
+```java
+interface Line {
+    // members of Line interface
+}
+
+// extending interface
+interface Polygon extends Line {
+    // members of Polygon interface
+    // members of Line interface
+}
+```
+
+---
+
+## Explanation
+
+### 1. Base Interface (`Line`)
+
+* `Line` is a simple interface.
+* It can contain abstract methods, default methods, static methods, and constants.
+
+### 2. Extending an Interface (`Polygon`)
+
+```java
+interface Polygon extends Line
+```
+
+* The `Polygon` interface **extends** the `Line` interface.
+* This means `Polygon` automatically inherits all members of `Line`.
+* Any class that implements `Polygon` must implement methods from **both** `Polygon` and `Line`.
+
+### 3. Interface Inheritance vs Class Inheritance
+
+* Interfaces use the `extends` keyword to inherit from other interfaces.
+* Unlike classes, an interface can extend **multiple interfaces**.
+
+---
+
+## Key Concepts Covered
+
+* Interface inheritance
+* Use of `extends` with interfaces
+* Hierarchical interface design
+* Code reusability through interfaces
+
+Interface inheritance helps create clean and scalable designs by allowing interfaces to share common behavior definitions.
+
+# Interface Implementation with Multiple Classes in Java
+
+This example demonstrates how a **single interface** can be implemented by **multiple classes** in Java. It highlights how interfaces promote abstraction, consistency, and polymorphic behavior.
+
+---
+
+## Java Code Example
+
+```java
+interface Vehicle {
+    void start();
+    void stop();
+}
+
+// Implement the Vehicle interface in the Car class
+class Car implements Vehicle {
+    public void start() {
+        System.out.println("Car is starting...");
+    }
+
+    public void stop() {
+        System.out.println("Car is stopping...");
+    }
+}
+
+// Implement the Vehicle interface in the Bike class
+class Bike implements Vehicle {
+    public void start() {
+        System.out.println("Bike is starting...");
+    }
+
+    public void stop() {
+        System.out.println("Bike is stopping...");
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        // Create objects of Car and Bike
+        Car myCar = new Car();
+        Bike myBike = new Bike();
+
+        // Start and stop the Car and Bike
+        myCar.start();
+        myCar.stop();
+        myBike.start();
+        myBike.stop();
+    }
+}
+```
+
+---
+
+## Explanation
+
+### 1. Interface (`Vehicle`)
+
+* The `Vehicle` interface defines two abstract methods: `start()` and `stop()`.
+* It represents a common contract that all vehicle types must follow.
+
+### 2. Implementing the Interface
+
+* Both `Car` and `Bike` implement the `Vehicle` interface.
+* Each class provides its **own implementation** of the `start()` and `stop()` methods.
+* The methods must be declared `public` because interface methods are public by default.
+
+### 3. Object Creation and Method Calls
+
+```java
+Car myCar = new Car();
+Bike myBike = new Bike();
+```
+
+* Separate objects are created for `Car` and `Bike`.
+* Even though the behavior is defined by the same interface, the output depends on the class implementation.
+
+---
+
+## Key Concepts Covered
+
+* Interface implementation
+* One interface, multiple implementations
+* Abstraction using interfaces
+* Code flexibility and reusability
+
+Interfaces allow different classes to share a common structure while providing their own specific behavior, making Java programs easier to extend and maintain.
+
+# Multiple Interface Implementation in Java (Car Example)
+
+Java allows a class to implement multiple interfaces. This helps in achieving **multiple inheritance of behavior** while avoiding the ambiguity problems associated with class inheritance.
+
+---
+
+## Problem Overview
+
+In this example:
+
+* One interface represents basic **vehicle operations**.
+* Another interface represents **music player functionality**.
+* A single class implements both interfaces and provides concrete behavior.
+
+---
+
+## Source Code
+
+```java
+// Interface for a vehicle
+interface Vehicle {
+    void start();
+    void stop();
+}
+
+// Interface for a music player
+interface MusicPlayer {
+    void playMusic();
+    void stopMusic();
+}
+
+// Class implementing both interfaces
+class Car implements Vehicle, MusicPlayer {
+    public void start() {
+        System.out.println("Car started");
+    }
+
+    public void stop() {
+        System.out.println("Car stopped");
+    }
+
+    public void playMusic() {
+        System.out.println("Playing music in the car");
+    }
+
+    public void stopMusic() {
+        System.out.println("Stopping music in the car");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car myCar = new Car();
+        // Using methods from both interfaces
+        myCar.start();
+        myCar.playMusic();
+        myCar.stopMusic();
+        myCar.stop();
+    }
+}
+```
+
+---
+
+## Explanation
+
+* `Vehicle` defines operations related to starting and stopping a vehicle.
+* `MusicPlayer` defines operations related to playing and stopping music.
+* `Car` implements **both interfaces**, so it must override all their abstract methods.
+* The `Main` class demonstrates how a single object can use methods from both interfaces.
+
+---
+
+## Output
+
+```
+Car started
+Playing music in the car
+Stopping music in the car
+Car stopped
+```
+
+---
+
+## Key Takeaways
+
+* Java supports multiple inheritance using interfaces.
+* A class can implement more than one interface using the `implements` keyword.
+* This approach promotes clean design, separation of concerns, and flexibility.
+* Interfaces are ideal when different capabilities need to be combined in one class.
+
+---
